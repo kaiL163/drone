@@ -9,13 +9,13 @@ if __name__ == "__main__":
 
     tl_flight = tl_drone.flight
 
-    tl_flight.up(distance=100).wait_for_completed()
+    tl_flight.takeoff().wait_for_completed()
 
     tl_flight.forward(distance=100).wait_for_completed()
     tl_flight.right(distance=100).wait_for_completed()
     tl_flight.back(distance=100).wait_for_completed()
     tl_flight.left(distance=100).wait_for_completed()
 
-    tl_flight.down(distance=100).wait_for_completed()
+    tl_flight.land().wait_for_completed()
 
     tl_drone.close()
