@@ -1,0 +1,192 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%;
+    z-index: 100;
+    transition: background var(--transition-normal);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.logo span {
+    color: var(--accent-primary);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.navLink {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.navLink:hover {
+    color: var(--text-primary);
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    transition: width var(--transition-fast);
+    box-shadow: var(--glow-shadow);
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+.randomBtn {
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+}
+
+.randomBtn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.searchBtn {
+    color: var(--text-primary);
+    opacity: 0.8;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBtn:hover {
+    opacity: 1;
+    color: var(--accent-primary);
+}
+
+.loginBtn {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.loginBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.userMenuWrapper {
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+.username {
+    font-weight: 600;
+    color: var(--accent-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.userMenuWrapper:hover .username {
+    background: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 180px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-fast);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+
+.userMenuWrapper:hover .dropdownMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdownItem {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    width: 100%;
+}
+
+.dropdownItem:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent-primary);
+}
+
+.dropdownDivider {
+    height: 1px;
+    background: var(--glass-border);
+    margin: 0.25rem 0;
+}
+
+.logoutText {
+    color: #ef4444;
+}
+
+.logoutText:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}

@@ -1,0 +1,225 @@
+.page {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Blurred background image */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    filter: blur(60px) brightness(0.25) saturate(1.5);
+    transform: scale(1.1);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.content {
+    padding: 2rem 4%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+/* Info Layout */
+.infoSection {
+    display: flex;
+    gap: 3rem;
+    padding-top: 2rem;
+    align-items: flex-start;
+}
+
+/* Poster */
+.posterWrapper {
+    flex-shrink: 0;
+    width: 280px;
+}
+
+.poster {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    display: block;
+}
+
+/* Details */
+.details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+.titleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.type {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-primary);
+}
+
+.title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.15;
+}
+
+.titleEn {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Meta row */
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.metaItem {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.metaSep {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+/* Badges */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.badgeOngoing {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--success);
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.9rem;
+}
+
+.badgeFavorites {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.1);
+    border: 1px solid rgba(244, 114, 182, 0.25);
+    border-radius: var(--radius-full);
+    padding: 0.3rem 0.9rem;
+}
+
+/* Genres */
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.genre {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    padding: 0.25rem 0.75rem;
+    backdrop-filter: blur(8px);
+    transition: all var(--transition-fast);
+    cursor: default;
+}
+
+.genre:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+/* Description */
+.description {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 700px;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.watchBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    border-radius: var(--radius-full);
+    background: var(--accent-primary);
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+    box-shadow: 0 0 24px var(--accent-glow);
+}
+
+.watchBtn:hover {
+    background: var(--accent-secondary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px var(--accent-glow);
+}
+
+/* Player Section */
+.playerSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 4rem;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .infoSection {
+        flex-direction: column;
+    }
+
+    .posterWrapper {
+        width: 200px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,330 @@
+.root {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+    background: #0b0b13;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Episode header ──────────────────────────── */
+.epHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    background: #13111c;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.epTitleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.epNum {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.epName {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.epNav {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.epNavBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: var(--accent-primary);
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+    font-family: inherit;
+}
+
+.epNavBtn:hover {
+    background: var(--accent-secondary);
+}
+
+.epNavBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ── Video area ──────────────────────────────── */
+.videoWrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Big circular play button */
+.bigPlayWrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.bigPlay {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+    /* optical center for ▶ */
+    box-shadow: 0 0 0 8px rgba(139, 92, 246, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.videoWrap:hover .bigPlay {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 12px rgba(139, 92, 246, 0.2), 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Bottom controls ─────────────────────────── */
+.controlsWrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%);
+    padding: 2.5rem 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+.active .controlsWrap {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Progress bar */
+.progressBar {
+    position: relative;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: height 0.15s;
+    margin-bottom: 2px;
+}
+
+.progressBar:hover {
+    height: 5px;
+}
+
+.progressBuf {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.progressFill {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: var(--accent-primary);
+    border-radius: 999px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+}
+
+.progressDot {
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(139, 92, 246, 0.8);
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.progressBar:hover .progressDot {
+    opacity: 1;
+}
+
+/* Control row */
+.ctrlRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ctrlLeft,
+.ctrlRight {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding: 0 0.25rem;
+}
+
+/* Quality dropdown */
+.qualWrap {
+    position: relative;
+}
+
+.qualBtn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: border-color 0.12s, color 0.12s;
+    font-family: inherit;
+}
+
+.qualBtn:hover {
+    border-color: var(--accent-primary);
+    color: #fff;
+}
+
+.qualMenu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    background: #1a1726;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    min-width: 90px;
+    animation: upIn 0.15s ease;
+    z-index: 50;
+}
+
+@keyframes upIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.qualItem {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.1s, color 0.1s;
+    font-family: inherit;
+}
+
+.qualItem:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+}
+
+.qualItemActive {
+    color: var(--accent-primary) !important;
+}
+
+/* Volume slider */
+.volSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 64px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    outline: none;
+    cursor: pointer;
+    accent-color: var(--accent-primary);
+}
+
+.volSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+}
