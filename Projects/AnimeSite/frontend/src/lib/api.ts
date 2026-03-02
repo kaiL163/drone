@@ -239,3 +239,66 @@ export function getCurrentSeason(): string {
     return `${season}_${year}`;
 }
 
+
+/** USER LISTS — DATABASE SYNC */
+
+export interface AnimeListItem {
+    id: number;
+    user_id: number;
+    shikimori_id: string;
+    status: 'planned' | 'watching' | 'completed' | 'on_hold' | 'dropped';
+    is_favorite: boolean;
+    episodes_watched: number;
+    score: number | null;
+    updated_at: string;
+}
+
+/** Get the current user's full anime list */
+export async function fetchUserList(token: string): Promise<AnimeListItem[]> {
+    try {
+        const res = await fetch(`${BACKEND_URL}/users/me/list`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) return [];
+        return await res.json();
+    } catch {
+        return [];
+    }
+}
+
+/** Add or update an item in the user's list */
+export async function updateAnimeList(token: string, data: {
+    shikimori_id: string;
+    status?: string;
+    is_favorite?: boolean;
+    episodes_watched?: number;
+    score?: number;
+}): Promise<AnimeListItem | null> {
+    try {
+        const res = await fetch(`${BACKEND_URL}/users/me/list`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch {
+        return null;
+    }
+}
+
+/** Remove an item from the user's list */
+export async function removeFromList(token: string, shikimoriId: string): Promise<boolean> {
+    try {
+        const res = await fetch(`${BACKEND_URL}/users/me/list/${shikimoriId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return res.ok;
+    } catch {
+        return false;
+    }
+}

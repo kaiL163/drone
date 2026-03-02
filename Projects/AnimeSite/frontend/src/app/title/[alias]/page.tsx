@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { fetchTitleByShikimoriId, kindLabel } from '@/lib/api';
 import PlayerSection from '@/components/PlayerSection/PlayerSection';
+import ListActions from '@/components/ListActions/ListActions';
 import styles from './page.module.css';
 
 interface TitlePageProps {
@@ -97,6 +98,10 @@ export default async function TitlePage({ params }: TitlePageProps) {
                         )}
 
                         <div className={styles.actions}>
+                            <ListActions
+                                shikimoriId={shikimoriId}
+                                totalEpisodes={m.episodes_total}
+                            />
                             {m.anime_status === 'anons' ? (
                                 <button className={styles.watchBtn} style={{ opacity: 0.5, cursor: 'not-allowed' }}>
                                     Анонс (скоро)

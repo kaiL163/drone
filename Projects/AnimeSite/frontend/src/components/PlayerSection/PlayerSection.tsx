@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { updateAnimeList } from '@/lib/api';
 import styles from './PlayerSection.module.css';
 import NekoPlayer from '../NekoPlayer/NekoPlayer';
 
@@ -29,6 +31,7 @@ export default function PlayerSection({
     initialTranslations,
     releaseName,
 }: PlayerSectionProps) {
+    const { token, isAuthenticated } = useAuth();
     const [translations, setTranslations] = useState<Translation[]>(initialTranslations || []);
     const [selectedTranslation, setSelectedTranslation] = useState<string | null>(
         initialTranslations?.[0]?.translation_id || null
@@ -129,6 +132,43 @@ export default function PlayerSection({
     }, [playerType, nekoSources.length, nekoLoading, fetchNekoLinks]);
 
     const currentTranslation = translations.find(t => t.translation_id === selectedTranslation);
+
+    // ── AUTOMATIC PROGRESS TRACKING ────────────────────────────
+
+    // 1. Update when user explicitly changes episode
+    useEffect(() => {
+        if (!isAuthenticated || !token || !shikimoriId || playerType !== 'kodik') return;
+
+        // Slightly debounce to avoid spamming while typing
+        const timer = setTimeout(() => {
+            updateAnimeList(token, {
+                shikimori_id: shikimoriId,
+                episodes_watched: selectedEpisode,
+                status: 'watching' // Auto-switch to watching if not already
+            });
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [selectedEpisode, shikimoriId, token, isAuthenticated, playerType]);
+
+    // 2. Listen for Kodik postMessage (Video End -> Next Episode)
+    useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+            if (event.data?.key === 'kodik_player_video_ended') {
+                const nextEp = selectedEpisode + 1;
+                const maxEps = currentTranslation?.episodes_count || 999;
+
+                if (nextEp <= maxEps) {
+                    setSelectedEpisode(nextEp);
+                    setInputEpisode(nextEp.toString());
+                    scrollToEpisode(nextEp);
+                }
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, [selectedEpisode, currentTranslation]);
 
     // Determine which iframe URL to show
     const displayUrl = currentTranslation?.link
