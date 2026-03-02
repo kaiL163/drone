@@ -220,13 +220,17 @@ export function getCurrentSeason(): string {
     let year = d.getFullYear();
     let season = '';
 
-    if (month === 11 || month === 0 || month === 1) {
+    // Standard Anime Seasons:
+    // Winter: Jan (0), Feb (1), Mar (2)
+    // Spring: Apr (3), May (4), Jun (5)
+    // Summer: Jul (6), Aug (7), Sep (8)
+    // Fall: Oct (9), Nov (10), Dec (11)
+
+    if (month >= 0 && month <= 2) {
         season = 'winter';
-        // If it's December, the "winter" season technically belongs to the next year's winter block
-        if (month === 11) year += 1;
-    } else if (month >= 2 && month <= 4) {
+    } else if (month >= 3 && month <= 5) {
         season = 'spring';
-    } else if (month >= 5 && month <= 7) {
+    } else if (month >= 6 && month <= 8) {
         season = 'summer';
     } else {
         season = 'fall';
